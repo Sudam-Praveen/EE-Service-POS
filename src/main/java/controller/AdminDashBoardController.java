@@ -150,6 +150,12 @@ public class AdminDashBoardController {
     }
 
     private void clearFields() {
+        txtUserId.clear();
+        txtUserName.clear();
+        txtUserPW.clear();
+        txtUserEmail.clear();
+        txtDesc.clear();
+        txtUserId.setEditable(true);
     }
 
     private void loadUserTable() {

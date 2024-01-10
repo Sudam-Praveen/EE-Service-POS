@@ -26,7 +26,7 @@ public class EmployeeDashBoardController {
 
     public Label lblMenu;
     public Label lblDescription;
-    public  Label lblUser;
+    public Label lblUser;
     public ImageView imgCustomer;
     public ImageView imgItem;
     public ImageView imgOrder;
@@ -34,21 +34,24 @@ public class EmployeeDashBoardController {
 
     public ImageView imgBack;
     public AnchorPane root;
-    private String loggedInUserId;
+    public static String loggedInUserId;
+    public static String userName;
 
-    public void setLoggedInUserId(String userId,String userName) {
+
+    public void setLoggedInUserId(String userId, String username) {
         this.loggedInUserId = userId;
-        lblUser.setText("Authorized User " + userId+"-"+userName);  // Set the user ID to the label
+        this.userName = username;
+       lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);  // Set the user ID to the label
+
     }
 
-    public void initialize(URL url, ResourceBundle rb) {
-        FadeTransition fadeIn = new FadeTransition(Duration.millis(2000), root);
-        fadeIn.setFromValue(0.0);
-        fadeIn.setToValue(1.0);
-        fadeIn.play();
+    public void initialize() {
+        if (loggedInUserId != null && userName != null) {
+            lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);
+        }
     }
 
-   
+
 
     public void backIconAction(MouseEvent mouseEvent) throws IOException {
         Stage stage = (Stage) lblMenu.getScene().getWindow();
