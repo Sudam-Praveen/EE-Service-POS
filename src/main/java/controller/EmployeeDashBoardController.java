@@ -41,7 +41,7 @@ public class EmployeeDashBoardController {
     public void setLoggedInUserId(String userId, String username) {
         this.loggedInUserId = userId;
         this.userName = username;
-       lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);  // Set the user ID to the label
+        lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);  // Set the user ID to the label
 
     }
 
@@ -50,7 +50,6 @@ public class EmployeeDashBoardController {
             lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);
         }
     }
-
 
 
     public void backIconAction(MouseEvent mouseEvent) throws IOException {
@@ -76,35 +75,39 @@ public class EmployeeDashBoardController {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
 
-            Parent root = null;
+            if (icon != null && icon.getId() != null) {
 
-            switch (icon.getId()) {
-                case "imgCustomer":
-                    root = FXMLLoader.load(this.getClass().getResource("/view/CustomerForm.fxml"));
-                    break;
-//                case "imgItem":
-//                    root = FXMLLoader.load(this.getClass().getResource("/view/ManageItemForm.fxml"));
-//                    break;
+                Parent root = null;
+                FXMLLoader loader = new FXMLLoader();
+                switch (icon.getId()) {
+                    case "imgCustomer":
+                        root = loader.load(this.getClass().getResource("/view/CustomerForm.fxml"));
+                        break;
+                    case "imgItem":
+                        root = loader.load(this.getClass().getResource("/view/ItemForm.fxml"));
+                        break;
 //                case "imgOrder":
 //                    root = FXMLLoader.load(this.getClass().getResource("/view/PlaceOrderForm.fxml"));
 //                    break;
 //                case "imgViewOrders":
 //                    root = FXMLLoader.load(this.getClass().getResource("/view/SearchOrdersForm.fxml"));
 //                    break;
+                }
+
+                if (root != null) {
+                    Scene subScene = new Scene(root);
+                    Stage primaryStage = (Stage) this.root.getScene().getWindow();
+                    primaryStage.setScene(subScene);
+                    primaryStage.sizeToScene();
+                    primaryStage.centerOnScreen();
+
+                    TranslateTransition tt = new TranslateTransition(Duration.millis(350), subScene.getRoot());
+                    tt.setFromX(-subScene.getWidth());
+                    tt.setToX(0);
+                    tt.play();
+                }
             }
 
-            if (root != null) {
-                Scene subScene = new Scene(root);
-                Stage primaryStage = (Stage) this.root.getScene().getWindow();
-                primaryStage.setScene(subScene);
-                primaryStage.sizeToScene();
-                primaryStage.centerOnScreen();
-
-                TranslateTransition tt = new TranslateTransition(Duration.millis(350), subScene.getRoot());
-                tt.setFromX(-subScene.getWidth());
-                tt.setToX(0);
-                tt.play();
-            }
         }
 
     }

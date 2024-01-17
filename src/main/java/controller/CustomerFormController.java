@@ -191,7 +191,7 @@ public class CustomerFormController {
         }
     }
 
-
+//============================Animation===================
     public void homeImageAction(MouseEvent event) {
         Stage stage = (Stage) tblecustomers.getScene().getWindow();
         try {

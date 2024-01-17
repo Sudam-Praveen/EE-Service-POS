@@ -70,6 +70,7 @@ public class LoginFormController {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeDashBoard.fxml"));
                         Scene scene = new Scene(loader.load());
+
                         EmployeeDashBoardController employeeController = loader.getController();
                         employeeController.setLoggedInUserId(txtUserName.getText(), user.getName());  // Pass the user ID
 

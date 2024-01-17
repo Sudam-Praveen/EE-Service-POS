@@ -10,6 +10,8 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.Tm.UserTm;
 import dto.User;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +20,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,6 +35,8 @@ import java.util.List;
 public class AdminDashBoardController {
 
 
+    public ImageView imgBack;
+    public Label mainText;
     @FXML
     private JFXTextField txtUserId;
 
@@ -95,8 +104,20 @@ public class AdminDashBoardController {
 
     public void backButtonOnAction(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) tblUser.getScene().getWindow();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/LoginForm.fxml"))));
-        stage.show();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LoginForm.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
+            tt.setFromX(-scene.getWidth());
+            tt.setToX(0);
+            tt.play();
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateButtonOnAction(ActionEvent actionEvent) {
@@ -203,6 +224,55 @@ public class AdminDashBoardController {
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void backIconAction(MouseEvent event) {
+        Stage stage = (Stage) tblUser.getScene().getWindow();
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LoginForm.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage.setScene(scene);
+
+            TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
+            tt.setFromX(-scene.getWidth());
+            tt.setToX(0);
+            tt.play();
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playMouseEnterAnimation(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1.2);
+            scaleT.setToY(1.2);
+            scaleT.play();
+            mainText.setText("Back To Login");
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.CORNFLOWERBLUE);
+            glow.setWidth(20);
+            glow.setHeight(20);
+            glow.setRadius(20);
+            icon.setEffect(glow);
+        }
+    }
+
+    public void playMouseExitAnimation(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
+            mainText.setText("Admin Form");
+            icon.setEffect(null);
         }
     }
 }

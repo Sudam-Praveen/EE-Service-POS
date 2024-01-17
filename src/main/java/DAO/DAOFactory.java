@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Custom.Impl.AdminDAOImpl;
 import DAO.Custom.Impl.CustomerDAOImpl;
+import DAO.Custom.Impl.ItemDAOImpl;
 import DAO.Utill.DAOType;
 import bo.custom.impl.AdminBOImpl;
 
@@ -17,6 +18,7 @@ public class DAOFactory {
         switch (type){
             case USER:return (T) new AdminDAOImpl();
             case CUSTOMER:return (T) new CustomerDAOImpl();
+            case ITEM:return (T) new ItemDAOImpl();
 
 
         }
