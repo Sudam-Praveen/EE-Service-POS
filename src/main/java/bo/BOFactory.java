@@ -15,7 +15,7 @@ public class BOFactory {
     public static BOFactory getInstance(){
         return boFactory!=null ? boFactory : (boFactory=new BOFactory());
     }
-
+//gsdgdsddg
     public <T extends SuperBO>T getBoFactory(BOType type) {
         switch(type){
             case USER:return (T) new AdminBOImpl();
