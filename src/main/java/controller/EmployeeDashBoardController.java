@@ -86,9 +86,9 @@ public class EmployeeDashBoardController {
                     case "imgItem":
                         root = loader.load(this.getClass().getResource("/view/ItemForm.fxml"));
                         break;
-//                case "imgOrder":
-//                    root = FXMLLoader.load(this.getClass().getResource("/view/PlaceOrderForm.fxml"));
-//                    break;
+                case "imgOrder":
+                    root = FXMLLoader.load(this.getClass().getResource("/view/PlaceOrderForm.fxml"));
+                break;
 //                case "imgViewOrders":
 //                    root = FXMLLoader.load(this.getClass().getResource("/view/SearchOrdersForm.fxml"));
 //                    break;

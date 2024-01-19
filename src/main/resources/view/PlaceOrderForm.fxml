@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="701.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
+   <children>
+      <JFXTextField fx:id="txtProductName" labelFloat="true" layoutX="234.0" layoutY="229.0" prefHeight="31.0" prefWidth="152.0" promptText="Product Name" />
+      <JFXTextField fx:id="txtCustName" labelFloat="true" layoutX="234.0" layoutY="171.0" prefHeight="31.0" prefWidth="123.0" promptText="Customer Name" />
+      <JFXTextField fx:id="txtCustEmail" labelFloat="true" layoutX="467.0" layoutY="171.0" prefHeight="31.0" prefWidth="195.0" promptText="Customer Email" />
+      <Button fx:id="btnComplete" layoutX="226.0" layoutY="298.0" mnemonicParsing="false" onAction="#completeButtonOnAction" style="-fx-background-color: green;" text=" Completed" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="482.0" layoutY="298.0" mnemonicParsing="false" onAction="#addOrderButtonAction" prefHeight="31.0" prefWidth="115.0" style="-fx-background-color: #0766AD;" text="Add Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <JFXTreeTableView fx:id="tbleOrders" layoutX="16.0" layoutY="350.0" prefHeight="300.0" prefWidth="690.0">
+         <columns>
+            <TreeTableColumn fx:id="colOrderID" prefWidth="75.0" text="Order ID" />
+            <TreeTableColumn fx:id="colUserID" prefWidth="92.0" text="UserID" />
+            <TreeTableColumn fx:id="colPdctName" prefWidth="114.0" text="Product Name" />
+            <TreeTableColumn fx:id="colDate" prefWidth="92.0" text="Date" />
+            <TreeTableColumn fx:id="colProcZone" prefWidth="132.0" text="Processing Zone" />
+            <TreeTableColumn fx:id="colOption" prefWidth="94.0" text="Option" />
+            <TreeTableColumn fx:id="colConfirm" prefWidth="94.0" text="Confirm" />
+         </columns>
+      </JFXTreeTableView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="97.0" stroke="BLACK" strokeType="INSIDE" width="721.0">
+         <fill>
+            <LinearGradient endX="0.9077669902912622" endY="0.9611650485436893" startX="0.7378640776699029" startY="0.07766990291262132">
+               <stops>
+                  <Stop color="#481357a5" />
+                  <Stop color="#481357a8" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="97.0" fitWidth="152.0" layoutX="578.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="72.0" fitWidth="133.0" layoutX="25.0" layoutY="13.0" onMouseClicked="#homeImageAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/home-icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="154.0" layoutY="33.0" text="Place Order" textFill="WHITE">
+         <font>
+            <Font name="Lucida Sans Demibold" size="27.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUserID" alignment="CENTER" layoutX="97.0" layoutY="115.0" prefHeight="25.0" prefWidth="80.0" text="E0000" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="32.0" layoutY="115.0" prefHeight="21.0" prefWidth="72.0" text="UserID" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="234.0" layoutY="115.0" prefHeight="21.0" prefWidth="72.0" text="OrderID" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblOrderId" alignment="CENTER" layoutX="306.0" layoutY="115.0" prefHeight="25.0" prefWidth="86.0" text="OR#00001" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="458.0" layoutY="115.0" prefHeight="21.0" prefWidth="72.0" text="Today" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTodayDate" alignment="CENTER" layoutX="521.0" layoutY="115.0" prefHeight="25.0" prefWidth="115.0" text="yyyy-MM-dd" textFill="#0043ad">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cmdCustId" labelFloat="true" layoutX="42.0" layoutY="171.0" prefHeight="31.0" prefWidth="123.0" promptText="Customer ID" />
+      <JFXComboBox fx:id="cmbItemCode" labelFloat="true" layoutX="42.0" layoutY="229.0" prefHeight="31.0" prefWidth="123.0" promptText="Item Code" />
+      <JFXTextField fx:id="txtAddedDate" labelFloat="true" layoutX="467.0" layoutY="229.0" prefHeight="31.0" prefWidth="152.0" promptText="Initial Date" />
+      <JFXComboBox fx:id="cmbComplete" labelFloat="true" layoutX="43.0" layoutY="291.0" prefHeight="31.0" prefWidth="123.0" promptText="complete" />
+   </children>
+</AnchorPane>

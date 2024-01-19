@@ -1,7 +1,8 @@
 package DAO.Custom;
 
 import DAO.CrudDAO;
-import dto.User;
+import entity.CustomerEntity;
+import entity.OrderEntity;
 import entity.UserEntity;
 
 import java.sql.SQLException;

@@ -133,8 +133,8 @@ public class ItemFormController {
 
     public void saveButtonOnAction(ActionEvent actionEvent) {
         boolean saved = false;
-        if (txtItemCode.getText().isBlank() == false & cmbCategory.getValue().isBlank() == false
-                & txtProductName.getText().isBlank() == false & txtIntPrice.getText().isBlank() == false){
+        if (txtItemCode.getText().isBlank() == false && cmbCategory.getValue().toString().isBlank() == false
+                && txtProductName.getText().isBlank() == false && txtIntPrice.getText().isBlank() == false){
             try {
                  saved = itemBO.saveItem(new Item(
                          lblUserID.getText(),
@@ -173,8 +173,8 @@ public class ItemFormController {
                 tmList.add(new ItemTm(
                         item.getUserId(),
                         item.getItemCode(),
-                        item.getCategory(),
                         item.getProductName(),
+                        item.getCategory(),
                         item.getInitialPrice(),
                         btn
 

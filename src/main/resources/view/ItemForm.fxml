@@ -14,7 +14,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="615.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="97.0" layoutX="-6.0" stroke="BLACK" strokeType="INSIDE" width="652.0">
@@ -66,12 +65,12 @@
             <TreeTableColumn fx:id="colOption" prefWidth="90.0" text="Option" />
          </columns>
       </JFXTreeTableView>
-      <Button layoutX="368.0" layoutY="261.0" mnemonicParsing="false" onAction="#updateButtonOnAction" style="-fx-background-color: #6B8C42;" text="Update" textFill="WHITE">
+      <Button layoutX="368.0" layoutY="261.0" mnemonicParsing="false" onAction="#updateButtonOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" style="-fx-background-color: #6B8C42;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" layoutX="511.0" layoutY="261.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="31.0" prefWidth="78.0" style="-fx-background-color: #0766AD;" text="Save" textFill="WHITE">
+      <Button alignment="CENTER" layoutX="511.0" layoutY="261.0" mnemonicParsing="false" onAction="#saveButtonOnAction" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" prefHeight="31.0" prefWidth="78.0" style="-fx-background-color: #0766AD;" text="Save" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

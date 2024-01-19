@@ -1,5 +1,7 @@
 package DAO;
 
+import entity.OrderEntity;
+
 import java.sql.SQLException;
 import java.util.List;
 

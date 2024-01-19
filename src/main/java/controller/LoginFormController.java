@@ -1,5 +1,9 @@
 package controller;
 
+import DAO.Utill.BOType;
+import bo.BOFactory;
+import bo.custom.LoginBO;
+import bo.custom.impl.LoginBOImpl;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dto.User;
@@ -11,7 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import DAO.Custom.Impl.UserModelImpl;
+import DAO.Custom.Impl.LoginDAOImpl;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -22,21 +26,21 @@ public class LoginFormController {
     public JFXTextField txtUserName;
     public JFXPasswordField txtPassword;
     public Label loginMsgLabel;
-    public UserModelImpl userModel = new UserModelImpl();
 
+    public LoginBO loginBO = BOFactory.getInstance().getBoFactory(BOType.LOGIN);
     public AnchorPane pane;
 
     public void handleLoginButtonAction(ActionEvent actionEvent) {
 
         if (txtUserName.getText().isBlank() == false && txtPassword.getText().isBlank() == false) {
 
-            loginMsgLabel.setText("You Try to login");
+            loginMsgLabel.setText(" Wrong login");
 
-            List<User> users = userModel.userValidation();
+            List<User> users = loginBO.getUsers();
             boolean isAvailable = false;
             for (User user : users) {
 
-                if (user.getUserID().equals(txtUserName.getText()) && user.getPassword().equals(txtPassword.getText())) {
+                if (user.getUserID().equals(txtUserName.getText()) & loginBO.isPasswordCorrect(txtUserName.getText(),txtPassword.getText())) {
                     isAvailable = true;
                     if (Objects.equals(txtUserName.getText(), "Admin")) {
                         loginMsgLabel.setText("Admin Login");
@@ -63,6 +67,8 @@ public class LoginFormController {
 
 
                     } else {
+                        //------------To Employee Dashboard-----------------
+
                         loginMsgLabel.setText("Employee " + user.getUserID() + " : " + user.getName() + " Login");
 
 
@@ -107,43 +113,3 @@ public class LoginFormController {
     public void handleCancelButtonAction(ActionEvent actionEvent) {
     }
 }
-//public class LoginFormController {
-//    // Existing code...
-//
-//    public void handleLoginButtonAction(ActionEvent actionEvent) {
-//        // Existing code...
-//
-//        for (User user : users) {
-//            if (user.getUserID().equals(txtUserName.getText()) && user.getPassword().equals(txtPassword.getText())) {
-//                isAvailable = true;
-//                if (Objects.equals(txtUserName.getText(), "Admin")) {
-//                    // Existing code...
-//
-//                } else {
-//                    loginMsgLabel.setText("Employee " + user.getUserID() + " : " + user.getName() + " Login");
-//
-//                    //---------To Employee DashBoard------------------
-//                    Stage stage = (Stage) pane.getScene().getWindow();
-//                    try {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EmployeeDashBoard.fxml"));
-//                        Scene scene = new Scene(loader.load());
-//
-//                        EmployeeDashBoardController employeeController = loader.getController();
-//                        employeeController.setLoggedInUserId(txtUserName.getText());  // Pass the user ID
-//
-//                        stage.setScene(scene);
-//                        stage.show();
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    new Alert(Alert.AlertType.CONFIRMATION, "LoginSuccess As Employee").show();
-//                }
-//            }
-//        }
-//
-//        // Existing code...
-//    }
-//
-//    // Existing code...
-//}

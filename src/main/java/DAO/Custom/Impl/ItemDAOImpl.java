@@ -2,8 +2,8 @@ package DAO.Custom.Impl;
 
 import DAO.Custom.ItemDAO;
 import DB.DBConnection;
-import dto.Item;
 import entity.ItemEntity;
+import entity.OrderEntity;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

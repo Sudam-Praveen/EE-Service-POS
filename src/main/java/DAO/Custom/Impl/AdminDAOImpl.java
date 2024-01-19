@@ -2,7 +2,7 @@ package DAO.Custom.Impl;
 
 import DAO.Custom.AdminDAO;
 import DB.DBConnection;
-import dto.User;
+import entity.OrderEntity;
 import entity.UserEntity;
 import javafx.scene.control.Alert;
 

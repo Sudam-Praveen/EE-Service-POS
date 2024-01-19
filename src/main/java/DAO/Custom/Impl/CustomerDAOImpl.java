@@ -3,7 +3,7 @@ package DAO.Custom.Impl;
 import DAO.Custom.CustomerDAO;
 import DB.DBConnection;
 import entity.CustomerEntity;
-import entity.UserEntity;
+import entity.OrderEntity;
 import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
@@ -38,6 +38,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return false;
     }
+
 
     @Override
     public boolean update(CustomerEntity entity) throws SQLException, ClassNotFoundException {

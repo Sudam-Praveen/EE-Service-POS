@@ -33,8 +33,9 @@ public class ItemBOImpl implements ItemBO {
             items.add(new Item(
                     entity.getUserId(),
                     entity.getItemCode(),
-                    entity.getCategory(),
                     entity.getProductName(),
+                    entity.getCategory(),
+
                     entity.getInitialPrice()
             ));
         }

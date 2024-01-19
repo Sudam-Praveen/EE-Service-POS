@@ -113,8 +113,8 @@ public class CustomerFormController {
 
     public void saveButtonOnAction(ActionEvent actionEvent) {
         boolean saved = false;
-        if (txtCustId.getText().isBlank() == false & txtCustName.getText().isBlank() == false
-                & txtCustEmail.getText().isBlank() == false & txtCustDetails.getText().isBlank() == false){
+        if (txtCustId.getText().isBlank() == false && txtCustName.getText().isBlank() == false
+                & txtCustEmail.getText().isBlank() == false && txtCustDetails.getText().isBlank() == false){
             try {
                 saved = customerBO.saveCustomer(new Customer(
                         txtCustId.getText(),
