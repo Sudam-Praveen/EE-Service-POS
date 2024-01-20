@@ -159,7 +159,12 @@ public class PlaceOrderFormController {
         if (newValue != null) {
             cmbComplete.setValue(newValue.getValue().getProcessZone().getText());
             setValuesObject(newValue.getValue().getOrderID());
-            btnComplete.setDisable(false);
+
+            if(newValue.getValue().getProcessZone().getText().equals("Closed")){
+                btnComplete.setDisable(true);
+            }else{
+                btnComplete.setDisable(false);
+            }
         }
     }
 
@@ -352,8 +357,13 @@ public class PlaceOrderFormController {
                         }
                         if (labelText.equals("Completed")) {
                             procZone = new Label("Completed");
-                            style += "-fx-background-color: #1b7e12;";
+                            style += "-fx-background-color: #28c218;";
                             btnC.setDisable(false);
+                        }if (labelText.equals("Closed")) {
+                            procZone = new Label("Closed");
+                            style += "-fx-background-color: #5043e8;";
+                            btnC.setDisable(true);
+                            btn.setDisable(true);
                         }
 
 

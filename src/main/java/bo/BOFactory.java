@@ -21,6 +21,7 @@ public class BOFactory {
             case CUSTOMER:return (T)new CustomerBOImpl();
             case ITEM:return  (T)new ItemBOImpl();
             case ORDER:return (T)new OrderBOImpl();
+            case ORDER_DETAIL:return (T)new OrderDetailsImpl();
 
         }
         return null;
