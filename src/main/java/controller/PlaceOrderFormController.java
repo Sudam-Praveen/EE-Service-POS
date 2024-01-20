@@ -24,6 +24,7 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -53,6 +54,7 @@ public class PlaceOrderFormController {
     public TreeTableColumn colDate;
     public JFXComboBox cmbComplete;
     public Button btnComplete;
+    public AnchorPane pane;
     @FXML
     private JFXTextField txtProductName;
 
@@ -98,11 +100,16 @@ public class PlaceOrderFormController {
     @FXML
     private JFXTextField txtAddedName;
     private List<Item> items;
+    private List<Order> orders;
     private List<Customer> customers;
     private ItemBO itemBo = BOFactory.getInstance().getBoFactory(BOType.ITEM);
     private CustomerBO customerBo = BOFactory.getInstance().getBoFactory(BOType.CUSTOMER);
     private final OrderBO orderBo = BOFactory.getInstance().getBoFactory(BOType.ORDER);
     private Order orderDto = null;
+    private ObservableList<OrderTm> tmlist;
+    private  Order order =null;
+    private  Customer customer=null;
+    private  Item item=null;
 
 
     public void initialize() {
@@ -216,7 +223,7 @@ public class PlaceOrderFormController {
     public void completeButtonOnAction(ActionEvent actionEvent) {
 
         // Create a confirmation dialog
-        String confirmationMessage = String.format("Are you sure you want to COMPLETE this order (%s)?",orderDto.getOrderID());
+        String confirmationMessage = String.format("Are you sure you want to COMPLETE this order (%s)?", orderDto.getOrderID());
         Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION, confirmationMessage);
         confirmationDialog.setTitle("Confirmation");
 
@@ -301,12 +308,22 @@ public class PlaceOrderFormController {
 
     private void loadOrderTable() {
 //------------------load table------------
-        btnComplete.setDisable(true);
-        ObservableList<OrderTm> tmlist = FXCollections.observableArrayList();
+         btnComplete.setDisable(true);
+         tmlist = FXCollections.observableArrayList();
+
+
+
         try {
             List<Order> allOrders = orderBo.getAllOrders();
 
             for (Order order : allOrders) {
+                JFXButton btn = new JFXButton("Delete");
+                btn.setStyle("-fx-background-color: #F94C10; -fx-text-fill: #FFF6F6; -fx-font-weight: bold;");
+
+                JFXButton btnC = new JFXButton("Check Out");
+                btnC.setStyle("-fx-background-color: #1014f9; -fx-text-fill: #FFF6F6; -fx-font-weight: bold;");
+                btnC.setDisable(true);
+
                 Label procZone = null;
                 try {
                     String dateString = order.getDate();
@@ -336,6 +353,7 @@ public class PlaceOrderFormController {
                         if (labelText.equals("Completed")) {
                             procZone = new Label("Completed");
                             style += "-fx-background-color: #1b7e12;";
+                            btnC.setDisable(false);
                         }
 
 
@@ -350,15 +368,6 @@ public class PlaceOrderFormController {
                     new Alert(Alert.AlertType.INFORMATION, "Invalid date format. Please use yyyy-MM-dd.").show();
                 }
 
-
-                JFXButton btn = new JFXButton("Delete");
-
-                btn.setStyle("-fx-background-color: #F94C10; -fx-text-fill: #FFF6F6; -fx-font-weight: bold;");
-
-                JFXButton btnC = new JFXButton("Confirm");
-                btnC.setStyle("-fx-background-color: #1014f9; -fx-text-fill: #FFF6F6; -fx-font-weight: bold;");
-
-
                 OrderTm orderTm = new OrderTm(
                         order.getOrderID(),
                         order.getUserID(),
@@ -371,10 +380,13 @@ public class PlaceOrderFormController {
                 btn.setOnAction(actionEvent -> {
                     deleteOrderTable(order.getOrderID());
                 });
+
                 btnC.setOnAction(actionEvent -> {
 
+                    confirmFinishedOrder(orderTm);
 
                 });
+
 
                 tmlist.add(orderTm);
                 RecursiveTreeItem treeItem = new RecursiveTreeItem<>(tmlist, RecursiveTreeObject::getChildren);
@@ -389,6 +401,68 @@ public class PlaceOrderFormController {
 
 
     }
+    private void setObjects(OrderTm ordertm){
+        //---------getting relevent Objects-----
+
+        try {
+           orders = orderBo.getAllOrders();
+            for (Order orderDto:orders) {
+                if(orderDto.getOrderID().equals(ordertm.getOrderID())){
+                    order=orderDto;
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+//---getting relevant customer object----------------
+
+            for (Customer customerDto:customers)
+                if (order.getCustId().equals(customerDto.getCustId())) {
+                    customer = customerDto;
+                }
+
+        //---getting relevant customer object----------------
+
+            for (Item itemDto:items) {
+                if(ordertm.getProductName().equals(itemDto.getProductName())){
+                    item=itemDto;
+                }
+            }
+
+
+    }
+    private void confirmFinishedOrder(OrderTm ordertm) {
+        String confirmationMessage = String.format("Do you want to place this order (%s)?", ordertm.getOrderID());
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION, confirmationMessage);
+        confirmationDialog.setTitle("Confirmation");
+
+        confirmationDialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                setObjects(ordertm);
+
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OrderDetailsForm.fxml"));
+                    AnchorPane root = loader.load();
+                    OrderDetailsFormController orderDetailsFormController = loader.getController();
+                    orderDetailsFormController.setData(order, customer, item);
+
+                    Stage stage = (Stage) pane.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+
+                    TranslateTransition tt = new TranslateTransition(Duration.millis(350), root);
+                    tt.setFromX(-root.getWidth());
+                    tt.setToX(0);
+                    tt.play();
+                    stage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
 
     private void deleteOrderTable(String orderID) {
         // Create a confirmation dialog

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="701.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
+<AnchorPane fx:id="pane" prefHeight="701.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlaceOrderFormController">
    <children>
       <JFXTextField fx:id="txtProductName" labelFloat="true" layoutX="234.0" layoutY="229.0" prefHeight="31.0" prefWidth="152.0" promptText="Product Name" />
       <JFXTextField fx:id="txtCustName" labelFloat="true" layoutX="234.0" layoutY="171.0" prefHeight="31.0" prefWidth="123.0" promptText="Customer Name" />

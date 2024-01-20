@@ -41,13 +41,14 @@ public class EmployeeDashBoardController {
     public void setLoggedInUserId(String userId, String username) {
         this.loggedInUserId = userId;
         this.userName = username;
-        lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);  // Set the user ID to the label
+        lblUser.setText(" User ID " + loggedInUserId );  // Set the user ID to the label
 
     }
 
     public void initialize() {
         if (loggedInUserId != null && userName != null) {
-            lblUser.setText("Authorized User " + loggedInUserId + "-" + userName);
+            lblUser.setText(" User ID " + loggedInUserId );
+
         }
     }
 
@@ -163,7 +164,7 @@ public class EmployeeDashBoardController {
             scaleT.play();
 
             icon.setEffect(null);
-            lblMenu.setText("Welcome");
+            lblMenu.setText("Welcome "+userName);
             lblDescription.setText("Please select one of above main operations to proceed");
         }
     }
