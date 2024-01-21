@@ -38,8 +38,11 @@ public class OrderDetailsImpl implements OrderDetailsBO {
 
     @Override
     public List<OrderDetails> getAllOrderDetails() throws SQLException, ClassNotFoundException {
+
         List<OrderDetails> details = new ArrayList<>();
+
         List<OrderDetailsEntity> allDetails = orderDetailsDAO.getAll();
+
         for (OrderDetailsEntity entity:allDetails) {
             details.add(new OrderDetails(
                     entity.getOrderID(),
@@ -60,7 +63,7 @@ public class OrderDetailsImpl implements OrderDetailsBO {
 
     @Override
     public boolean deleteOrderTable(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return orderDetailsDAO.delete(id);
     }
 
     @Override

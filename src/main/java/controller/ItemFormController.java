@@ -224,7 +224,7 @@ public class ItemFormController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/EmployeeDashBoard.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
-
+            stage.centerOnScreen();
             TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
             tt.setFromX(-scene.getWidth());
             tt.setToX(0);

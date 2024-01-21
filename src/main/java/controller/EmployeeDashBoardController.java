@@ -41,13 +41,13 @@ public class EmployeeDashBoardController {
     public void setLoggedInUserId(String userId, String username) {
         this.loggedInUserId = userId;
         this.userName = username;
-        lblUser.setText(" User ID " + loggedInUserId );  // Set the user ID to the label
+        lblUser.setText(" User ID " + loggedInUserId);  // Set the user ID to the label
 
     }
 
     public void initialize() {
         if (loggedInUserId != null && userName != null) {
-            lblUser.setText(" User ID " + loggedInUserId );
+            lblUser.setText(" User ID " + loggedInUserId);
 
         }
     }
@@ -59,7 +59,7 @@ public class EmployeeDashBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LoginForm.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
-
+            stage.centerOnScreen();
             TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
             tt.setFromX(-scene.getWidth());
             tt.setToX(0);
@@ -87,15 +87,18 @@ public class EmployeeDashBoardController {
                     case "imgItem":
                         root = loader.load(this.getClass().getResource("/view/ItemForm.fxml"));
                         break;
-                case "imgOrder":
-                    root = FXMLLoader.load(this.getClass().getResource("/view/PlaceOrderForm.fxml"));
-                break;
-//                case "imgViewOrders":
-//                    root = FXMLLoader.load(this.getClass().getResource("/view/SearchOrdersForm.fxml"));
-//                    break;
+                    case "imgViewOrders":
+                        root = FXMLLoader.load(this.getClass().getResource("/view/SearchForm.fxml"));
+                        break;
+                    case "imgOrder":
+                        root = FXMLLoader.load(this.getClass().getResource("/view/PlaceOrderForm.fxml"));
+                        break;
+
                 }
 
                 if (root != null) {
+
+                    loader.setController(this);
                     Scene subScene = new Scene(root);
                     Stage primaryStage = (Stage) this.root.getScene().getWindow();
                     primaryStage.setScene(subScene);
@@ -164,7 +167,7 @@ public class EmployeeDashBoardController {
             scaleT.play();
 
             icon.setEffect(null);
-            lblMenu.setText("Welcome "+userName);
+            lblMenu.setText("Welcome " + userName);
             lblDescription.setText("Please select one of above main operations to proceed");
         }
     }

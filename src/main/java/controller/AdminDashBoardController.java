@@ -23,6 +23,7 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -37,6 +38,7 @@ public class AdminDashBoardController {
 
     public ImageView imgBack;
     public Label mainText;
+    public AnchorPane pane;
     @FXML
     private JFXTextField txtUserId;
 
@@ -226,7 +228,55 @@ public class AdminDashBoardController {
             e.printStackTrace();
         }
     }
+    public void seearchButtoAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) pane.getScene().getWindow();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SearchForm.fxml"));
+            Scene scene = new Scene(loader.load());
 
+            SearchFormController searchFormController = loader.getController();
+            searchFormController.setLoggedInUserId("Admin");  // Pass the user ID
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
+            tt.setFromX(-scene.getWidth());
+            tt.setToX(0);
+            tt.play();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void viewOrdersButtoAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) pane.getScene().getWindow();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AdminOrderView.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
+            tt.setFromX(-scene.getWidth());
+            tt.setToX(0);
+            tt.play();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+    //--------Animation---------
     public void backIconAction(MouseEvent event) {
         Stage stage = (Stage) tblUser.getScene().getWindow();
         try {
@@ -234,7 +284,7 @@ public class AdminDashBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../view/LoginForm.fxml"));
             Scene scene = new Scene(loader.load());
             stage.setScene(scene);
-
+            stage.centerOnScreen();
             TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
             tt.setFromX(-scene.getWidth());
             tt.setToX(0);
@@ -245,6 +295,8 @@ public class AdminDashBoardController {
             e.printStackTrace();
         }
     }
+
+
 
     public void playMouseEnterAnimation(MouseEvent event) {
         if (event.getSource() instanceof ImageView) {
@@ -275,4 +327,8 @@ public class AdminDashBoardController {
             icon.setEffect(null);
         }
     }
+
+
+
+
 }

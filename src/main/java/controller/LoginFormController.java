@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dto.User;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -81,7 +82,7 @@ public class LoginFormController {
                         employeeController.setLoggedInUserId(txtUserName.getText(), user.getName());  // Pass the user ID
 
                         stage.setScene(scene);
-
+                        stage.centerOnScreen();
                         TranslateTransition tt = new TranslateTransition(Duration.millis(350), scene.getRoot());
                         tt.setFromX(-scene.getWidth());
                         tt.setToX(0);
@@ -111,5 +112,6 @@ public class LoginFormController {
     }
 
     public void handleCancelButtonAction(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

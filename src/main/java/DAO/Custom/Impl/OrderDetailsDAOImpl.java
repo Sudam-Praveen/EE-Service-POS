@@ -41,12 +41,23 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
     @Override
     public boolean delete(String value) throws SQLException, ClassNotFoundException {
-        return false;
+        String sql = "DELETE FROM OrderDetails WHERE Order_ID=?";
+
+        try {
+            PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            pstm.setString(1, value);
+            int result = pstm.executeUpdate();
+            return true;
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<OrderDetailsEntity> getAll() throws SQLException, ClassNotFoundException {
+
         String sql = "SELECT * FROM Orderdetails";
+
         List<OrderDetailsEntity> details = new ArrayList<>();
         PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
         ResultSet resultSet = pstm.executeQuery();
